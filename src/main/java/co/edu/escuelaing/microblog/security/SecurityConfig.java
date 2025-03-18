@@ -51,6 +51,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/", "/index.html").permitAll()
+                        .requestMatchers("/css/**", "/js/**").permitAll() // Permitir acceso a recursos estáticos
+                        .requestMatchers("/*.js", "/*.css").permitAll() // Patrón corregido para recursos en la raíz
+                        .requestMatchers("/assets/**").permitAll() // Patrón adicional para otros recursos
+                        .requestMatchers("/favicon.ico").permitAll()
                         .anyRequest().authenticated()
                 );
 
@@ -66,10 +71,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+        configuration.setAllowedOrigins(Arrays.asList("*")); // En producción, específica el origen exacto
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 

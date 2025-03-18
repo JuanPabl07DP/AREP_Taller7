@@ -1,5 +1,6 @@
 package co.edu.escuelaing.microblog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -22,10 +23,12 @@ public class Post {
     @CreatedDate
     private LocalDateTime createdAt;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stream_id", nullable = false)
     private Stream stream;
@@ -40,7 +43,7 @@ public class Post {
         this.stream = stream;
     }
 
-    // Getters y Setters
+    // Getters y Setters originales
     public Long getId() {
         return id;
     }
@@ -79,5 +82,22 @@ public class Post {
 
     public void setStream(Stream stream) {
         this.stream = stream;
+    }
+
+    // Getters adicionales para exponer información básica sin causar recursión
+    public Long getUserId() {
+        return user != null ? user.getId() : null;
+    }
+
+    public String getUsername() {
+        return user != null ? user.getUsername() : null;
+    }
+
+    public Long getStreamId() {
+        return stream != null ? stream.getId() : null;
+    }
+
+    public String getStreamName() {
+        return stream != null ? stream.getName() : null;
     }
 }

@@ -39,8 +39,15 @@ const api = {
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Failed to create post');
+                    // Si hay una respuesta no exitosa pero con contenido JSON
+                    try {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Failed to create post');
+                    } catch (jsonError) {
+                        // Si no es JSON válido, usar el texto de la respuesta o un mensaje genérico
+                        const errorText = await response.text().catch(() => 'Unknown error');
+                        throw new Error(errorText || `Error ${response.status}: Failed to create post`);
+                    }
                 }
 
                 return await response.json();
@@ -85,8 +92,15 @@ const api = {
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Failed to create stream');
+                    // Si hay una respuesta no exitosa pero con contenido JSON
+                    try {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Failed to create stream');
+                    } catch (jsonError) {
+                        // Si no es JSON válido, usar el texto de la respuesta o un mensaje genérico
+                        const errorText = await response.text().catch(() => 'Unknown error');
+                        throw new Error(errorText || `Error ${response.status}: Failed to create stream`);
+                    }
                 }
 
                 return await response.json();
@@ -100,7 +114,14 @@ const api = {
 
 function authFetch(url, options = {}) {
     const token = getAuthToken();
-    if (!token) {
+
+    // Para solicitudes GET a endpoints públicos, permitir sin token
+    if (!token && (options.method === undefined || options.method === 'GET') &&
+        (url.includes('/api/posts') || url.includes('/api/streams'))) {
+        return fetch(url, options);
+    }
+    // Para solicitudes que requieren autenticación pero no hay token
+    else if (!token) {
         showLoginModal();
         return Promise.reject(new Error('Authentication required'));
     }
@@ -115,14 +136,13 @@ function authFetch(url, options = {}) {
 
     return fetch(url, authOptions)
         .then(async response => {
-            if (!response.ok) {
-                const text = await response.text();
-                console.error('Error response from server:', text);
-                return new Response(text, {
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: response.headers
-                });
+            // Si la respuesta es 401, el token puede haber expirado
+            if (response.status === 401) {
+                // Limpiar el token inválido
+                localStorage.removeItem(TOKEN_KEY);
+                // Mostrar modal de login
+                showLoginModal();
+                throw new Error('Your session has expired. Please log in again.');
             }
             return response;
         });

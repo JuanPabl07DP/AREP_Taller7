@@ -3,6 +3,7 @@ package co.edu.escuelaing.microblog.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -52,10 +53,12 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/", "/index.html").permitAll()
-                        .requestMatchers("/css/**", "/js/**").permitAll() // Permitir acceso a recursos estáticos
-                        .requestMatchers("/*.js", "/*.css").permitAll() // Patrón corregido para recursos en la raíz
-                        .requestMatchers("/assets/**").permitAll() // Patrón adicional para otros recursos
+                        .requestMatchers("/css/**", "/js/**").permitAll()
+                        .requestMatchers("/*.js", "/*.css").permitAll()
+                        .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/favicon.ico").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll() // Permitir GET a posts
+                        .requestMatchers(HttpMethod.GET, "/api/streams/**").permitAll() // Permitir GET a streams
                         .anyRequest().authenticated()
                 );
 

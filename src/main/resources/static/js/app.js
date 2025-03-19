@@ -33,12 +33,8 @@ const signupError = document.getElementById('signup-error');
 document.addEventListener('DOMContentLoaded', () => {
     updateAuthUI();
 
-    if (isAuthenticated()) {
-        loadStreams();
-        loadPosts();
-    } else {
-        showLoginModal();
-    }
+    loadStreams();
+    loadPosts();
 
     setupEventListeners();
 });
@@ -134,6 +130,13 @@ function updateCharCount() {
 async function createPost() {
     postError.textContent = '';
 
+    // Verificar autenticación antes de continuar
+    if (!isAuthenticated()) {
+        showLoginModal();
+        postError.textContent = 'Please log in to create a post';
+        return;
+    }
+
     const content = postContent.value.trim();
     const selectedStreamId = streamSelect.value;
 
@@ -221,6 +224,13 @@ function createPostElement(post) {
 
 async function createStream() {
     streamError.textContent = '';
+
+    // Verificar autenticación antes de continuar
+    if (!isAuthenticated()) {
+        showLoginModal();
+        streamError.textContent = 'Please log in to create a stream';
+        return;
+    }
 
     const name = streamName.value.trim();
     const description = streamDescription.value.trim();

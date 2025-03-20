@@ -4,7 +4,7 @@
 #### 👨🏻‍💻👩🏼‍💻👨🏻‍💻 AUTORES: 
 - [Saray Alieth Mendivelso Gonzalez](https://github.com/saraygonm) 
 - [Juan Pablo Daza Pereira](https://github.com/JuanPabl07DP)
-- [Nicolas Bernal Fuquene](https://github.com/.........)
+- [Nicolas Bernal Fuquene](https://github.com/nicobernal19)
 
 ----------
 Este proyecto es una API RESTful para un Microblog donde los usuarios pueden crear, leer y gestionar publicaciones dentro de diferentes streams. Está construido con Spring Boot y tiene integración con JWT para la autenticación y autorización.
@@ -46,6 +46,8 @@ Debes instalar los siguientes componentes:
     - IntelliJ IDEA
     - Eclipse
     - Apache NetBeans
+
+----
 
 ### 🌐 Estructura del Proyecto
 La arquitectura del sistema está organizada de la siguiente manera:
@@ -155,10 +157,36 @@ mvn verify
 
 ## 🏗️ Arquitectura
 
+### 📌 Diagrama de Arquitectura
+
+<p align="center">
+  <img src="./src/main/resources/static/img/arquitectura.png" alt="Imagen de la página" width="700px">
+</p>
+
 ### 📌 Diagrama de Clases
+
+<p align="center">
+  <img src="./src/main/resources/static/img/clases.png" alt="Imagen de la página" width="700px">
+</p>
+
 ### 📌 Diagrama de Secuencia
-### 📌 Diagrama de Despliegue
+
+<p align="center">
+  <img src="./src/main/resources/static/img/secuencia.png" alt="Imagen de la página" width="700px">
+</p>
+
+
 ### 📌 Diagrama de Componentes
+
+<p align="center">
+  <img src="./src/main/resources/static/img/componentes.png" alt="Imagen de la página" width="700px">
+</p>
+
+
+### 📌 Diagrama de Despliegue
+
+
+-----
 
 ## 🌐 Frontend
 
@@ -267,11 +295,10 @@ La configuración de JWT se encuentra en el archivo `application.properties`, co
 
 ## 🛠️ Tecnologías Utilizadas
 
-REVISAR SI HACE FALTA ALGO O SI ESTOS ESTAN BIEN
+
 - **Java** - Lenguaje de programación principal
 - **Spring Boot** - Framework backend
 - **Maven** - Gestor de dependencias
-- **Docker** - Contenedorización
 - **AWS** - Despliegue en la nube
 
 ---

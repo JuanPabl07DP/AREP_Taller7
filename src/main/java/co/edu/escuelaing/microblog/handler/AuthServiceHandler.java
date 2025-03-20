@@ -1,5 +1,21 @@
 package co.edu.escuelaing.microblog.handler;
 
+import co.edu.escuelaing.microblog.MicroblogApplication;
+import co.edu.escuelaing.microblog.dto.ApiResponse;
+import co.edu.escuelaing.microblog.dto.JwtAuthenticationResponse;
+import co.edu.escuelaing.microblog.dto.LoginRequest;
+import co.edu.escuelaing.microblog.dto.SignUpRequest;
+import co.edu.escuelaing.microblog.model.User;
+import co.edu.escuelaing.microblog.security.JwtTokenProvider;
+import co.edu.escuelaing.microblog.service.UserService;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.context.ApplicationContext;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,22 +26,27 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import co.edu.escuelaing.microblog.dto.ApiResponse;
-import co.edu.escuelaing.microblog.dto.JwtAuthenticationResponse;
-import co.edu.escuelaing.microblog.dto.LoginRequest;
-import co.edu.escuelaing.microblog.dto.SignUpRequest;
-import co.edu.escuelaing.microblog.model.User;
-import co.edu.escuelaing.microblog.security.JwtTokenProvider;
-import co.edu.escuelaing.microblog.service.UserService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-public class AuthServiceHandler {
+public class AuthServiceHandler implements RequestStreamHandler {
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final UserService userService = new UserService();
-    private static final JwtTokenProvider tokenProvider = new JwtTokenProvider();
+    private static final ApplicationContext context;
+    private static final UserService userService;
+    private static final JwtTokenProvider tokenProvider;
 
-    public static void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
+    // Inicializar el contexto de Spring al cargar la clase
+    static {
+        try {
+            SpringApplication application = new SpringApplication(MicroblogApplication.class);
+            application.setWebApplicationType(WebApplicationType.NONE);
+            context = application.run();
+            userService = context.getBean(UserService.class);
+            tokenProvider = context.getBean(JwtTokenProvider.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Error initializing Spring context: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
         // Leer el evento entrante
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String requestBody = reader.lines().collect(Collectors.joining());
@@ -122,18 +143,5 @@ public class AuthServiceHandler {
         OutputStreamWriter writer = new OutputStreamWriter(outputStream);
         writer.write(objectMapper.writeValueAsString(lambdaResponse));
         writer.close();
-    }
-
-    // Clase interna para representar el contexto de Lambda
-    public static class Context {
-        private String functionName;
-
-        public String getFunctionName() {
-            return functionName;
-        }
-
-        public void setFunctionName(String functionName) {
-            this.functionName = functionName;
-        }
     }
 }

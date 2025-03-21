@@ -21,10 +21,6 @@ La API permite realizar las siguientes acciones:
 - Gestionar streams donde los posts son organizados.
 - Seguridad implementada con JWT para proteger las rutas.
 
-------------
-## 📍 Comenzando
-Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas.
-
 --------------
 ### Funcionalidades
 
@@ -33,19 +29,6 @@ Estas instrucciones te permitirán obtener una copia del proyecto en funcionamie
 - **Operaciones CRUD**: Funcionalidades completas para crear, leer, actualizar y eliminar usuarios, publicaciones y streams.
 
 -------------
-
-### 🔧 Prerrequisitos
-
-Debes instalar los siguientes componentes:
-
-- [Java JDK 17 superior](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-- [Maven](https://maven.apache.org/download.cgi)
-- [Git](https://git-scm.com/)
-- Un navegador Web
-- Utiliza el entorno de desarrollo integrado (IDE) de tu preferencia, como por ejemplo:
-    - IntelliJ IDEA
-    - Eclipse
-    - Apache NetBeans
 
 ### 🌐 Estructura del Proyecto
 La arquitectura del sistema está organizada de la siguiente manera:
@@ -57,32 +40,7 @@ La arquitectura del sistema está organizada de la siguiente manera:
 - Excepciones: Gestionan errores globales y específicos del sistema, como recursos no encontrados o ya existentes.
 - Handlers: Clases que creamos para las funciones lambda.
 
-### ⚙️ Instalación
-
-1. **Clona el repositorio:**
-   ```sh
-   git clone https://github.com/JuanPabl07DP/AREP_Taller7.git
-   ```
-   
-2. **Entra en la carpeta del proyecto:**
-   ```sh
-   cd AREP_Taller7
-   ```
-
-3. **Compila el proyecto con Maven:**
-   ```sh
-   mvn clean package
-   ```
-
-4. **Inicia el servidor:**
-   ```sh
-   mvn spring-boot:run
-   ```
-   
-5. **Accede a la aplicación en el navegador:**
-   ```
-   http://localhost:8080
-   ```
+### Ejecucion en local
 
 * Una vez iniciado el servidor, podrás visualizar la página web en tu navegador.
 

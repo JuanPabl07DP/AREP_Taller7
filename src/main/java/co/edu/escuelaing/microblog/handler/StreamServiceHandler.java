@@ -16,15 +16,18 @@ import co.edu.escuelaing.microblog.dto.ApiResponse;
 import co.edu.escuelaing.microblog.model.Stream;
 import co.edu.escuelaing.microblog.security.JwtTokenProvider;
 import co.edu.escuelaing.microblog.service.StreamService;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class StreamServiceHandler {
+public class StreamServiceHandler implements RequestStreamHandler {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final StreamService streamService = new StreamService();
     private static final JwtTokenProvider tokenProvider = new JwtTokenProvider();
 
-    public static void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
+    @Override
+    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
         // Leer el evento entrante
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String requestBody = reader.lines().collect(Collectors.joining());
@@ -187,18 +190,5 @@ public class StreamServiceHandler {
         OutputStreamWriter writer = new OutputStreamWriter(outputStream);
         writer.write(objectMapper.writeValueAsString(lambdaResponse));
         writer.close();
-    }
-
-    // Clase interna para representar el contexto de Lambda
-    public static class Context {
-        private String functionName;
-
-        public String getFunctionName() {
-            return functionName;
-        }
-
-        public void setFunctionName(String functionName) {
-            this.functionName = functionName;
-        }
     }
 }

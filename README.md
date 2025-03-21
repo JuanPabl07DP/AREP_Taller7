@@ -62,8 +62,7 @@ La arquitectura del sistema está organizada de la siguiente manera:
    ```sh
    git clone https://github.com/JuanPabl07DP/AREP_Taller7.git
    ```
-
-ESTO NO SE SI ESTA BBIEN DEDUCELO SEGUN LOS ARCHIVOS QUE TE ENVIO DECIR EN CUAL RAMA UBICARSE Y DEMAS
+   
 2. **Entra en la carpeta del proyecto:**
    ```sh
    cd AREP_Taller7
@@ -164,7 +163,8 @@ mvn verify
 ### 📌 Diagrama de Arquitectura
 
 <p align="center">
-  <img src="./src/main/resources/static/img/arquitectura.png" alt="Imagen de la página" width="700px">
+  ![image](https://github.com/user-attachments/assets/dde0ed50-3a23-4f31-a19e-860498f53721)
+
 </p>
 
 ### 📌 Diagrama de Clases
@@ -185,11 +185,6 @@ mvn verify
 <p align="center">
   <img src="./src/main/resources/static/img/componentes.png" alt="Imagen de la página" width="700px">
 </p>
-
-
-### 📌 Diagrama de Despliegue
-
-
 -----
 
 ## 🌐 Frontend
@@ -302,29 +297,44 @@ La configuración de JWT se encuentra en el archivo `application.properties`, co
 - **`POST /api/auth/signin`**: Inicia sesión con nombre de usuario y contraseña. Si son válidos, se retorna un JWT.
 - **`POST /api/auth/signup`**: Registra un nuevo usuario con nombre de usuario, correo electrónico y contraseña. Valida que el nombre de usuario y correo electrónico no estén registrados.
 
-
-
 -------------------
 ## 🚀 Despliegue en AWS
+
+### Frontend en S3
+
+Creamos un bucket en S3 y subimos los archivos estaticos que conforman nuestro front (html, css, js).
+
+![image](https://github.com/user-attachments/assets/25c8e268-58bd-4f00-a1c0-40154337909a)
+
+Imagen del despliegue funcionando en S3:
+
+![image](https://github.com/user-attachments/assets/e904e8d7-22ac-406f-9c1b-4c4bcda9cfdb)
+
+### Funciones Lambda
+
+Para las funciones lambda creamos tres (streams, posts, auth), tuvimos que desplegar el .jar en un bucket de s3 debido a que era muy pesado.
+Llamamos a los respectivos metodos para cada funcion lambda.
+
+![image](https://github.com/user-attachments/assets/2f7e0c53-6ade-4cd3-9e07-255fd02ff5b8)
+
+![image](https://github.com/user-attachments/assets/845be2bd-aaa0-4b57-9137-6e2e61bb20bf)
+
+![image](https://github.com/user-attachments/assets/b95ced3e-f35c-4316-b6d6-a5ec247dcf97)
+
+### API Gateway
+
+Una vez ya teniamos creadas las funciones lambda, creamos una api gateway, para manejarlas, y para que este gateway fuera una especie de back al que el front se comunicaba y hacia requests.
+
+![image](https://github.com/user-attachments/assets/c6a19183-2322-44fa-9f88-2e7da4ca4e8f)
 
 -------------------
 
 ## 🛠️ Tecnologías Utilizadas
 
-
-
 - **Java** - Lenguaje de programación principal
 - **Spring Boot** - Framework backend
 - **Maven** - Gestor de dependencias
 - **AWS** - Despliegue en la nube
-
----
-### 📺 Video de Demostración
-
-[![Ver en YouTube](https:)](https:/)
-
-
-
 
 ---
 

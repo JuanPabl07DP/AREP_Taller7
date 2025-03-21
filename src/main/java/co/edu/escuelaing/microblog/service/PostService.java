@@ -13,9 +13,28 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.context.ApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
+import co.edu.escuelaing.microblog.MicroblogApplication;
 
 @Service
 public class PostService {
+
+    private static final ApplicationContext context;
+
+    // Inicializar el contexto de Spring si es necesario
+    static {
+        ApplicationContext tempContext = null;
+        try {
+            SpringApplication application = new SpringApplication(MicroblogApplication.class);
+            application.setWebApplicationType(WebApplicationType.NONE);
+            tempContext = application.run();
+        } catch (Exception e) {
+            System.err.println("Error initializing Spring context: " + e.getMessage());
+        }
+        context = tempContext;
+    }
 
     @Autowired
     private PostRepository postRepository;
@@ -26,10 +45,30 @@ public class PostService {
     @Autowired
     private StreamRepository streamRepository;
 
+    // Constructor para inicialización manual
+    public PostService() {
+        try {
+            if (postRepository == null && context != null) {
+                this.postRepository = context.getBean(PostRepository.class);
+            }
+            if (userRepository == null && context != null) {
+                this.userRepository = context.getBean(UserRepository.class);
+            }
+            if (streamRepository == null && context != null) {
+                this.streamRepository = context.getBean(StreamRepository.class);
+            }
+        } catch (Exception e) {
+            System.err.println("Error getting beans from context: " + e.getMessage());
+        }
+    }
+
     /**
      * Obtiene todos los posts con paginación
      */
     public Page<Post> getAllPosts(Pageable pageable) {
+        if (postRepository == null) {
+            throw new IllegalStateException("PostRepository not initialized");
+        }
         return postRepository.findAll(pageable);
     }
 
@@ -37,6 +76,9 @@ public class PostService {
      * Obtiene un post por su ID
      */
     public Post getPostById(Long id) {
+        if (postRepository == null) {
+            throw new IllegalStateException("PostRepository not initialized");
+        }
         return postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
     }
@@ -45,6 +87,10 @@ public class PostService {
      * Obtiene posts por stream con paginación
      */
     public Page<Post> getPostsByStream(Long streamId, Pageable pageable) {
+        if (postRepository == null || streamRepository == null) {
+            throw new IllegalStateException("Repositories not initialized");
+        }
+
         Stream stream = streamRepository.findById(streamId)
                 .orElseThrow(() -> new ResourceNotFoundException("Stream", "id", streamId));
 
@@ -55,6 +101,10 @@ public class PostService {
      * Obtiene posts por usuario con paginación
      */
     public Page<Post> getPostsByUser(Long userId, Pageable pageable) {
+        if (postRepository == null || userRepository == null) {
+            throw new IllegalStateException("Repositories not initialized");
+        }
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
@@ -66,6 +116,10 @@ public class PostService {
      */
     @Transactional
     public Post createPost(Post post, Long userId, Long streamId) {
+        if (postRepository == null || userRepository == null || streamRepository == null) {
+            throw new IllegalStateException("Repositories not initialized");
+        }
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
@@ -92,6 +146,10 @@ public class PostService {
      */
     @Transactional
     public Post updatePost(Long id, Post postDetails) {
+        if (postRepository == null) {
+            throw new IllegalStateException("PostRepository not initialized");
+        }
+
         Post post = getPostById(id);
 
         // Validar longitud del contenido (máximo 140 caracteres)
@@ -113,6 +171,10 @@ public class PostService {
      */
     @Transactional
     public void deletePost(Long id) {
+        if (postRepository == null) {
+            throw new IllegalStateException("PostRepository not initialized");
+        }
+
         Post post = getPostById(id);
         postRepository.delete(post);
     }

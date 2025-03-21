@@ -17,20 +17,23 @@ import co.edu.escuelaing.microblog.security.JwtTokenProvider;
 import co.edu.escuelaing.microblog.service.PostService;
 import co.edu.escuelaing.microblog.service.StreamService;
 import co.edu.escuelaing.microblog.service.UserService;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-public class PostServiceHandler {
+public class PostServiceHandler implements RequestStreamHandler {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final PostService postService = new PostService();
     private static final UserService userService = new UserService();
     private static final StreamService streamService = new StreamService();
     private static final JwtTokenProvider tokenProvider = new JwtTokenProvider();
 
-    public static void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
+    @Override
+    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
         // Leer el evento entrante
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String requestBody = reader.lines().collect(Collectors.joining());
@@ -240,18 +243,5 @@ public class PostServiceHandler {
         OutputStreamWriter writer = new OutputStreamWriter(outputStream);
         writer.write(objectMapper.writeValueAsString(lambdaResponse));
         writer.close();
-    }
-
-    // Clase interna para representar el contexto de Lambda
-    public static class Context {
-        private String functionName;
-
-        public String getFunctionName() {
-            return functionName;
-        }
-
-        public void setFunctionName(String functionName) {
-            this.functionName = functionName;
-        }
     }
 }

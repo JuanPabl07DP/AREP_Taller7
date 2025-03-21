@@ -78,8 +78,7 @@ La arquitectura del sistema está organizada de la siguiente manera:
    ```sh
    mvn spring-boot:run
    ```
-
-VERIFICA EL PUERTO SI ES ESE EL QUE SE USO
+   
 5. **Accede a la aplicación en el navegador:**
    ```
    http://localhost:8080

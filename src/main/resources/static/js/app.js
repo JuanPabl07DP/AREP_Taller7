@@ -132,8 +132,8 @@ async function createPost() {
 
     // Verificar autenticación antes de continuar
     if (!isAuthenticated()) {
-        showLoginModal();
         postError.textContent = 'Please log in to create a post';
+        showLoginModal(); // Mostrar el modal de inicio de sesión solo si el usuario intenta crear un post
         return;
     }
 

@@ -1,5 +1,5 @@
 // API URL
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://29cxvfbwsl.execute-api.us-east-1.amazonaws.com/dev';
 
 const api = {
     posts: {
@@ -122,7 +122,6 @@ function authFetch(url, options = {}) {
     }
     // Para solicitudes que requieren autenticación pero no hay token
     else if (!token) {
-        showLoginModal();
         return Promise.reject(new Error('Authentication required'));
     }
 

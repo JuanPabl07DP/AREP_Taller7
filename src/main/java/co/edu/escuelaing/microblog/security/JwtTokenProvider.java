@@ -18,8 +18,6 @@ import java.util.function.Function;
 @Component
 public class JwtTokenProvider {
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
-    private static final String DEFAULT_SECRET = "jwtsecretkey9876543210abcdefghijklmnopqrstuvwxyzJWTSUPERSECRETKEY";
-    private static final long DEFAULT_EXPIRATION_MS = 86400000; // 24 horas
 
     @Autowired
     private JwtConfig jwtConfig;
@@ -33,7 +31,7 @@ public class JwtTokenProvider {
     // Generate a token based on username
     public String generateToken(String username) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + getExpirationMs());
+        Date expiryDate = new Date(now.getTime() + jwtConfig.getExpirationMs());
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("sub", username);
@@ -87,20 +85,7 @@ public class JwtTokenProvider {
 
     // Get signing key
     private Key getSigningKey() {
-        byte[] keyBytes = getSecret().getBytes(StandardCharsets.UTF_8);
+        byte[] keyBytes = jwtConfig.getSecret().getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
-    }
-
-    // Métodos para obtener configuración con valores por defecto
-    private String getSecret() {
-        return (jwtConfig != null && jwtConfig.getSecret() != null)
-                ? jwtConfig.getSecret()
-                : DEFAULT_SECRET;
-    }
-
-    private long getExpirationMs() {
-        return (jwtConfig != null)
-                ? jwtConfig.getExpirationMs()
-                : DEFAULT_EXPIRATION_MS;
     }
 }

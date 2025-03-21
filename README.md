@@ -163,7 +163,8 @@ mvn verify
 ### 📌 Diagrama de Arquitectura
 
 <p align="center">
-  ![image](https://github.com/user-attachments/assets/dde0ed50-3a23-4f31-a19e-860498f53721)
+    
+  ![image](https://github.com/user-attachments/assets/dde0ed50-3a23-4f31-a19e-860498f53721)}
 
 </p>
 

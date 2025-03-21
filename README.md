@@ -4,7 +4,7 @@
 #### 👨🏻‍💻👩🏼‍💻👨🏻‍💻 AUTORES: 
 - [Saray Alieth Mendivelso Gonzalez](https://github.com/saraygonm) 
 - [Juan Pablo Daza Pereira](https://github.com/JuanPabl07DP)
-- [Nicolas Bernal Fuquene](https://github.com/.........)
+- [Nicolas Bernal Fuquene](https://github.com/nicobernal19)
 
 ----------
 Este proyecto es una API RESTful para un Microblog donde los usuarios pueden crear, leer y gestionar publicaciones dentro de diferentes streams. Está construido con Spring Boot y tiene integración con JWT para la autenticación y autorización.
@@ -89,7 +89,9 @@ VERIFICA EL PUERTO SI ES ESE EL QUE SE USO
 
 
 <p align="center">
-  <img src="/src/main/resources/static/img/1.png" alt="Imagen de la página" width="700px">
+
+  <img src="./src/main/resources/static/img/1.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
@@ -102,7 +104,9 @@ VERIFICA EL PUERTO SI ES ESE EL QUE SE USO
    mvn test
 
 <p align="center">
-  <img src="/src/main/resources/static/img/test.png" alt="Imagen de la página" width="700px">
+
+  <img src="./src/main/resources/static/img/test.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
@@ -134,7 +138,9 @@ Esto ejecutará todas las pruebas definidas en el directorio src/test/java.
 mvn verify
 ```
 <p align="center">
-  <img src="/src/main/resources/static/img/test2.png" alt="Imagen de la página" width="700px">
+
+  <img src="./src/main/resources/static/img/test2.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
@@ -155,10 +161,36 @@ mvn verify
 
 ## 🏗️ Arquitectura
 
+### 📌 Diagrama de Arquitectura
+
+<p align="center">
+  <img src="./src/main/resources/static/img/arquitectura.png" alt="Imagen de la página" width="700px">
+</p>
+
 ### 📌 Diagrama de Clases
+
+<p align="center">
+  <img src="./src/main/resources/static/img/clases.png" alt="Imagen de la página" width="700px">
+</p>
+
 ### 📌 Diagrama de Secuencia
-### 📌 Diagrama de Despliegue
+
+<p align="center">
+  <img src="./src/main/resources/static/img/secuencia.png" alt="Imagen de la página" width="700px">
+</p>
+
+
 ### 📌 Diagrama de Componentes
+
+<p align="center">
+  <img src="./src/main/resources/static/img/componentes.png" alt="Imagen de la página" width="700px">
+</p>
+
+
+### 📌 Diagrama de Despliegue
+
+
+-----
 
 ## 🌐 Frontend
 
@@ -169,7 +201,9 @@ El sistema cuenta con una interfaz web desarrollada en HTML, CSS y JavaScript.
 - Página principal sin publicaciones.
 
 <p align="center">
-  <img src="/src/main/resources/static/img/1.png" alt="Imagen de la página" width="700px">
+
+  <img src="./src/main/resources/static/img/1.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 - **Formulario de registro**
@@ -177,7 +211,9 @@ El sistema cuenta con una interfaz web desarrollada en HTML, CSS y JavaScript.
 Este formulario se corresponde con el endpoint de POST `/api/auth/signup` que registra a un nuevo usuario, verificando la disponibilidad del nombre de usuario y el correo electrónico antes de crear el nuevo usuario en la base de datos.
 
 <p align="center">
-  <img src="/src/main/resources/static/img/createacount.png" alt="Imagen de la página" width="700px">
+
+  <img src="./src/main/resources/static/img/createacount.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 - **Formulario de inicio de sesión**
@@ -185,7 +221,9 @@ Los usuarios ingresan su nombre de usuario y contraseña. Esta acción correspon
 
 
 <p align="center">
-  <img src="/src/main/resources/static/img/2.png" alt="Imagen de la página" width="700px">
+
+  <img src="./src/main/resources/static/img/2.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
@@ -193,25 +231,31 @@ Los usuarios ingresan su nombre de usuario y contraseña. Esta acción correspon
 Con nombre y descripción. Este flujo está vinculado al endpoint POST `/api/streams`
 
 <!-- Creación de tabla para alinear las imágenes lado a lado.-->
-| <img src="/src/main/resources/static/img/stream.png" alt="Descarga local" width="500px"> | <img src="/src/main/resources/static/img/stream2.png" alt="Importar carpetas" width="500px"> |
-|------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| **Creacion Stream**                                                                      | **stream creado**                                                                            |
+
+| <img src="./src/main/resources/static/img/stream.png" alt="Descarga local" width="500px"> | <img src="./src/main/resources/static/img/stream2.png" alt="Importar carpetas" width="500px"> |
+|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| **Creacion Stream**                                                                       | **stream creado**                                                                             |
+
 
 
 - **Visualización del stream creado**
 Después de crear un stream, se muestra en la interfaz junto con su descripción y fecha de creación
 
 <p align="center">
-  <img src="/src/main/resources/static/img/streamjuan.png" alt="Imagen de la página" width="700px">
+
+  <img src="./src/main/resources/static/img/streamjuan.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
 - **Formulario para crear un post**
 Esto se conecta con el endpoint POST `/api/posts/user/{userId}/stream/{streamId}` del backend para crear una publicación en el stream correspondiente.
 <!-- Creación de tabla para alinear las imágenes lado a lado.-->
-| <img src="/src/main/resources/static/img/home.png" alt="Descarga local" width="500px"> | <img src="/src/main/resources/static/img/home2.png" alt="Importar carpetas" width="500px"> |
-|----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| **Un post mismo user**                                                                 | **Varios Post dif user**                                                                  |
+
+| <img src="./src/main/resources/static/img/home.png" alt="Descarga local" width="500px"> | <img src="./src/main/resources/static/img/home2.png" alt="Importar carpetas" width="500px"> |
+|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| **Un post mismo user**                                                                  | **Varios Post dif user**                                                                    |
+
 
 
 - **Interfaz con publicaciones en el stream**
@@ -267,11 +311,11 @@ La configuración de JWT se encuentra en el archivo `application.properties`, co
 
 ## 🛠️ Tecnologías Utilizadas
 
-REVISAR SI HACE FALTA ALGO O SI ESTOS ESTAN BIEN
+
+
 - **Java** - Lenguaje de programación principal
 - **Spring Boot** - Framework backend
 - **Maven** - Gestor de dependencias
-- **Docker** - Contenedorización
 - **AWS** - Despliegue en la nube
 
 ---

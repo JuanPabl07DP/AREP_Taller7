@@ -47,8 +47,6 @@ Debes instalar los siguientes componentes:
     - Eclipse
     - Apache NetBeans
 
-----
-
 ### 🌐 Estructura del Proyecto
 La arquitectura del sistema está organizada de la siguiente manera:
 
@@ -91,7 +89,9 @@ VERIFICA EL PUERTO SI ES ESE EL QUE SE USO
 
 
 <p align="center">
+
   <img src="./src/main/resources/static/img/1.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
@@ -104,7 +104,9 @@ VERIFICA EL PUERTO SI ES ESE EL QUE SE USO
    mvn test
 
 <p align="center">
+
   <img src="./src/main/resources/static/img/test.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
@@ -136,7 +138,9 @@ Esto ejecutará todas las pruebas definidas en el directorio src/test/java.
 mvn verify
 ```
 <p align="center">
+
   <img src="./src/main/resources/static/img/test2.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
@@ -197,7 +201,9 @@ El sistema cuenta con una interfaz web desarrollada en HTML, CSS y JavaScript.
 - Página principal sin publicaciones.
 
 <p align="center">
+
   <img src="./src/main/resources/static/img/1.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 - **Formulario de registro**
@@ -205,7 +211,9 @@ El sistema cuenta con una interfaz web desarrollada en HTML, CSS y JavaScript.
 Este formulario se corresponde con el endpoint de POST `/api/auth/signup` que registra a un nuevo usuario, verificando la disponibilidad del nombre de usuario y el correo electrónico antes de crear el nuevo usuario en la base de datos.
 
 <p align="center">
+
   <img src="./src/main/resources/static/img/createacount.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 - **Formulario de inicio de sesión**
@@ -213,7 +221,9 @@ Los usuarios ingresan su nombre de usuario y contraseña. Esta acción correspon
 
 
 <p align="center">
+
   <img src="./src/main/resources/static/img/2.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
@@ -221,25 +231,31 @@ Los usuarios ingresan su nombre de usuario y contraseña. Esta acción correspon
 Con nombre y descripción. Este flujo está vinculado al endpoint POST `/api/streams`
 
 <!-- Creación de tabla para alinear las imágenes lado a lado.-->
+
 | <img src="./src/main/resources/static/img/stream.png" alt="Descarga local" width="500px"> | <img src="./src/main/resources/static/img/stream2.png" alt="Importar carpetas" width="500px"> |
 |-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 | **Creacion Stream**                                                                       | **stream creado**                                                                             |
+
 
 
 - **Visualización del stream creado**
 Después de crear un stream, se muestra en la interfaz junto con su descripción y fecha de creación
 
 <p align="center">
+
   <img src="./src/main/resources/static/img/streamjuan.png" alt="Imagen de la página" width="700px">
+
 </p>
 
 
 - **Formulario para crear un post**
 Esto se conecta con el endpoint POST `/api/posts/user/{userId}/stream/{streamId}` del backend para crear una publicación en el stream correspondiente.
 <!-- Creación de tabla para alinear las imágenes lado a lado.-->
+
 | <img src="./src/main/resources/static/img/home.png" alt="Descarga local" width="500px"> | <img src="./src/main/resources/static/img/home2.png" alt="Importar carpetas" width="500px"> |
 |-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | **Un post mismo user**                                                                  | **Varios Post dif user**                                                                    |
+
 
 
 - **Interfaz con publicaciones en el stream**
@@ -294,6 +310,7 @@ La configuración de JWT se encuentra en el archivo `application.properties`, co
 -------------------
 
 ## 🛠️ Tecnologías Utilizadas
+
 
 
 - **Java** - Lenguaje de programación principal

@@ -55,6 +55,7 @@ La arquitectura del sistema está organizada de la siguiente manera:
 - Repositorios: Interactúan con la base de datos utilizando JPA para las operaciones CRUD.
 - Modelo: Define las entidades que son almacenadas en la base de datos.
 - Excepciones: Gestionan errores globales y específicos del sistema, como recursos no encontrados o ya existentes.
+- Handlers: Clases que creamos para las funciones lambda.
 
 ### ⚙️ Instalación
 
@@ -160,7 +161,7 @@ mvn verify
 
 ## 🏗️ Arquitectura
 
-### 📌 Diagrama de Arquitectura
+### 📌 Arquitectura
 
 <p align="center">
     
@@ -173,13 +174,6 @@ mvn verify
 <p align="center">
   <img src="./src/main/resources/static/img/clases.png" alt="Imagen de la página" width="700px">
 </p>
-
-### 📌 Diagrama de Secuencia
-
-<p align="center">
-  <img src="./src/main/resources/static/img/secuencia.png" alt="Imagen de la página" width="700px">
-</p>
-
 
 ### 📌 Diagrama de Componentes
 
